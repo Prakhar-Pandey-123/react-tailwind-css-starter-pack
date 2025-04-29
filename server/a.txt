@@ -1,0 +1,126 @@
+npm init -y=> initializes a new nodejs project by creating package.json
+package.json =>contains dependencies(package ur appln will need like express,nodemon etc)
+
+framework is like a pre-built toolbox for coding that gives you a structured way to build applications faster. Express is a framework for Node.js that simplifies creating web servers, just like React helps build user interfaces easily
+
+Express is a fast and lightweight web framework for Node.js (which lets you run JavaScript on a server). It helps you build websites and backend services easily.
+
+Node.js is a JavaScript runtime that lets you run JavaScript code outside a web browser (like on a server). It’s built on Chrome’s V8 engine (the same one that powers Google Chrome) and makes JavaScript fast and efficient for backend development. With Node.js, you can build web servers, APIs, real-time apps (like chats), and more—all using JavaScript, the language you already know from frontend web dev!
+
+A server is like a powerful, always-on computer that stores data, runs apps, and delivers information to other devices (like your phone or laptop) when requested. For example, when you visit a website, a web server sends the site’s files to your browser. Servers handle tasks in the background—hosting websites, managing databases, or running APIs—so users can access services smoothly.
+
+bcrypt: Encrypts passwords securely so they can't be stolen from your database.
+cookie-parser: Reads cookies from browsers to handle user sessions easily.
+dotenv: Loads secrets (like API keys) from a .env file so they stay private.
+express: The core framework for building your Node.js web server/app.
+jsonwebtoken: Creates secure login tokens (JWT) for user authentication.
+mongoose: Lets your Node.js app talk to MongoDB (a NoSQL database) easily.
+nodemailer: Sends emails (like password resets) from your Node.js app.
+nodemon: Auto-restarts your server when you save code (dev-only).
+otp-generator: Generates one-time passwords (OTPs) for SMS/email verification.
+
+git add .  =>Pick all my changed files and get them ready.
+git commit -m "your message here" =>Save these changes with a note about what I did
+git push  =>Send my saved work to the online project (like GitHub).
+
+//check if its correct=>line 102 of Auth.js
+=====================================================================
+1. User Requests to Buy a Course
+A user wants to buy a course on your platform.
+The user clicks "Buy Now".
+2. Backend Creates Razorpay Order
+Your server gets the course details (price, name, etc.) and the user's details (like userId).
+Your server creates an order by calling Razorpay API with the payment details (like amount, currency, receipt, notes, etc.)
+Razorpay API Call: instance.orders.create(options)
+3. Razorpay Returns Payment Order
+Razorpay creates the order and sends a response back to your server, which includes:
+orderId (a unique ID for the transaction)
+currency and amount
+Your server logs the response and then sends this information (including course details) to the frontend.
+4. Frontend Shows Payment Widget
+The frontend (client-side) receives the orderId and other payment details.
+Razorpay's payment widget opens on the user's screen to allow them to enter payment details (credit/debit card, UPI, etc.).
+5. User Makes Payment
+The user enters payment details in the Razorpay widget.
+Razorpay processes the payment and confirms whether the payment is successful or failed.
+6. Razorpay Sends Payment Status (Webhook or Callback)
+Once the payment is processed, Razorpay sends a callback or a webhook to your server with:
+paymentId
+orderId
+paymentStatus (success or failure)
+Other details like receipt, userId, etc.
+7. Backend Verifies Payment
+Your backend receives the payment details via the webhook.
+It verifies the payment status.
+If payment is successful: You enroll the user in the course.
+If payment is failed: You handle failure, such as sending a message to the user.
+8. Frontend Shows Payment Success/Failure
+Based on the response from the server, the frontend shows:
+Success: “Payment Successful! You are now enrolled in the course.”
+Failure: “Payment Failed! Please try again.”
+
+========================================================================
+
+Sign Up: User submits credentials, server hashes the password with bcrypt, and stores the hash in the database.user password is converted into a long string with some salt factor now this long string is saved in db and this string can not be reconverted back to password again
+Sign In: User submits credentials, server hashes the entered password and compares it with the stored hash.the same password is again converted to same long string as stored in db and then both long string are matched to check if password is correct or not.
+If the password matches, the server generates a JWT (containing user info) and sends it to the client.it is made using jwt.sign fn
+The client stores the JWT (in localStorage or cookies) and sends it with requests in the Authorization header.
+The server verifies the JWT on each request to ensure it's valid and not expired.
+If the JWT is valid, the server processes the request (e.g., fetching user data).
+If the JWT expires, the server returns a 401 Unauthorized error.
+
+====================================================================
+You are a teacher. You give a signed note to a student that says:
+"This student is allowed to enter the class – Signed by Teacher"
+This note is like a JWT token. Now when the student comes back to class, they show the note.
+You don’t need to remember every note you gave. You just check:
+Is this note signed by me?
+Is it still valid (not expired)?
+If both are true, you trust the note.
+Now in code:
+When user logs in, you create a token using:
+jwt.sign(payload, secret)
+This adds a digital signature using your secret key.
+Later, when user sends that token, you do:
+jwt.verify(token, secret)
+It checks:
+Was the token really signed with your secret?
+Is the token not expired?
+If both are true → token is valid.
+If someone fakes the token → the signature won’t match → token is rejected.
+======================================================================
+1. Encryption
+What it does: Changes data into unreadable form using a key.
+Can be reversed? Yes, using the same (or matching) key.
+Use case: Protecting messages, files, or any data you want to get back later.
+Example: Encrypt a file, then decrypt it to read again.
+Symmetric encryption: Same key to encrypt & decrypt.
+Asymmetric encryption: Public key to encrypt, private key to decrypt.
+2. Bcrypt (Hashing) eg -sha256
+What it does: Converts data (like a password) into a fixed-length, random-looking string.
+Can be reversed? No – it’s one-way.
+Use case: Storing passwords safely so even the server can’t read them.
+Example: Password 123456 becomes something like $2b$10$Xs3...
+
+====================================================
+
+hmac=hash based message authentication code=hash+secret key
+
+=============================================================
+
+Go to MongoDB Atlas and log in.
+Click on the project where you already have Cluster0.
+On the dashboard, click on "Cluster0" (or your active cluster).
+Click “Browse Collections” (this opens the database/collection area).
+Click the “Create Database” button.
+Fill the form:
+Database Name: study_notion
+Collection Name: e.g., users or anything (you can change it later)
+Click “Create” — the study_notion database is now created.
+2. Get the Connection String
+In the Cluster0 view, click the “Connect” button (top-right).
+Choose “Connect your application”.
+Set:Driver: Node.js
+Copy the given connection string:
+===================================================
+Not your Gmail password,,Google blocks less secure apps, so you need to generate an app password.

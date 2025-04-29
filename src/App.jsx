@@ -1,12 +1,16 @@
 import "./App.css";
-
+import { Route,Routes } from "react-router-dom";
+import Home from "./pages/Home"
+//react-router-dom is used to:Show different pages (components).When user clicks buttons or links.Without reloading the whole pagereact-router-dom is used to:Show different pages (components)
 function App() {
   return (
-    <main className="flex justify-center gap-4 flex-col min-h-screen">
-      <h1 className="text-3xl text-center font-bold underline">React & Tailwind CSS Starter Pack</h1>
-      <p className="text-center text-xl">This is a starter pack for React & Tailwind CSS projects.</p>
-      <img src="https://bit.ly/3wsmzTy" alt="meme" className="mx-auto" />
-    </main>
+    //class is a reserved keyword in JavaScript (used for defining classes).So in JSX (which is JavaScript + HTML-like syntax), we use className to avoid confusion.
+    <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
+      {/* //Width = 100% of the screen (full width) .Minimum height = 100% of the screen (full height if needed)*/}
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+      </Routes>
+    </div>
   );
 }
 
